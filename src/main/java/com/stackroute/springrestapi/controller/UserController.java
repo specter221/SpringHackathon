@@ -31,7 +31,7 @@ public class UserController {
 		
 		if(user==null)
 		{
-			return new ResponseEntity<List<UserModel>>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<List<UserModel>>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<UserModel>>(user,HttpStatus.OK);
 }
@@ -48,19 +48,23 @@ public class UserController {
 	       return new ResponseEntity<String>("User Added", HttpStatus.OK) ;
 	   }
 	
+	
 	/*update user in the database */
 	@RequestMapping(value="/update", method=RequestMethod.PUT, consumes="application/json")
-	   public ResponseEntity updateUser(@RequestBody UserModel usermodel)
+	   public ResponseEntity updateUser(@RequestBody UserModel usermodel) throws UserAlreadyExists
 	   {
 	       /*Add validation code*/ 
-		try {
-	       userservice.updateUser(usermodel);
-		}
-		catch(Exception e) {
-			return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
-		}
+			UserModel usermodel1= userservice.updateUser(usermodel);
+			if(usermodel==usermodel1) throw new UserAlreadyExists("user already exists");
+		
+//		catch(UserAlreadyExists e) {
+//			return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+//		}
+		else {
 	       return new ResponseEntity<String>("user updated", HttpStatus.OK) ;
 	   }
+	   }
+
 	@RequestMapping(method=RequestMethod.DELETE, value="/delete/{id}", consumes="application/json")
     public ResponseEntity<String> delete(@PathVariable(value="id") int id){
     
