@@ -76,6 +76,18 @@ public class UserMainTest {
 	                HttpMethod.GET, entity, String.class);
 	        assertNotNull(response);
 	    }
+	    
+	    @Test
+	    public void testdelete() throws Exception {
+	        HttpEntity<UserModel> entity = new HttpEntity<UserModel>(usermodel, headers);
+	        ResponseEntity<String> response = restTemplate.exchange(
+	                createURLWithPort("/v0.1/userprofile/delete/1"),
+	                HttpMethod.DELETE, entity, String.class);
+	        assertNotNull(response);
+	        String actual = response.getBody();
+	        System.out.println(actual);
+	        assertEquals("Deleted succesfully",actual);
+	    }
 }
 	    
 	    
