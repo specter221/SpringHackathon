@@ -28,7 +28,7 @@ public class UserMainTest {
 	    UserModel usermodel;
 	    @Before
 	    public void setUp() throws Exception {
-	    	usermodel = new UserModel();
+	    	usermodel = new UserModel(1,"dikshab9","diksha@gmail.com");
 	    }
 	    private String createURLWithPort(String uri) {
 	        return "http://localhost:" + port + uri;
@@ -46,6 +46,26 @@ public class UserMainTest {
 	        String actual = response.getBody();
 	        System.out.println(actual);
 	        assertEquals("User Added",actual);
+	    }
+	    @Test
+	    public void testGetUser() throws Exception {
+	        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+	        ResponseEntity<String> response = restTemplate.exchange(
+	                createURLWithPort("/v0.1/userprofile/get"),
+	                HttpMethod.GET, entity, String.class);
+	        assertNotNull(response);
+	    }
+	    
+	    @Test
+	    public void testUpdateUser() throws Exception {
+	        HttpEntity<UserModel> entity = new HttpEntity<UserModel>(usermodel, headers);
+	        ResponseEntity<String> response = restTemplate.exchange(
+	                createURLWithPort("/v0.1/userprofile/update"),
+	                HttpMethod.PUT, entity, String.class);
+	        assertNotNull(response);
+	        String actual = response.getBody();
+	        System.out.println(actual);
+	        assertEquals("user updated",actual);
 	    }
 }
 	    

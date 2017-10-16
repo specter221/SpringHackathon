@@ -64,7 +64,6 @@ public class UserController {
 	   public ResponseEntity <UserModel> getById(@PathVariable("id") int id) {
 	     
 	     UserModel usermodel=userservice.getUserbyId(id);
-//      int userbyid = userservice.getUserbyId(id);
 	       if (usermodel == null) {
 	           return new ResponseEntity<UserModel>(HttpStatus.NOT_FOUND);
 	       }
