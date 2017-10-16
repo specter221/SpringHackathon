@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.stackroute.springrestapi.domain.UserModel;
 import com.stackroute.springrestapi.exceptions.NotValidException;
 import com.stackroute.springrestapi.exceptions.UserAlreadyExists;
