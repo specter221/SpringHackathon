@@ -12,6 +12,8 @@ public class UserModel {
 	public int getId() {
 		return id;
 	}
+	
+	//getters and setters
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -27,6 +29,8 @@ public class UserModel {
 	public void setEmail_id(String email_id) {
 		this.email_id = email_id;
 	}
+	
+	//constructor
 	public UserModel(int id, String username, String email_id) {
 		super();
 		this.id = id;
