@@ -54,17 +54,17 @@ public class UserController {
 	
 	/*update user in the database */
 	@RequestMapping(value="/update", method=RequestMethod.PUT, consumes="application/json")
-	   public ResponseEntity updateUser(@RequestBody UserModel usermodel) throws UserAlreadyExists
-	   {
-	       /*Add validation code*/ 
-			UserModel usermodel1= userservice.updateUser(usermodel);
-			if(usermodel==usermodel1) throw new UserAlreadyExists("user already exists");
-		
-
-		else {
-	       return new ResponseEntity<String>("user updated", HttpStatus.OK) ;
-	   }
-	   }
+    public ResponseEntity updateUser(@RequestBody UserModel usermodel) throws UserAlreadyExists
+    {
+        /*Add validation code*/ 
+         UserModel usermodel1= userservice.updateUser(usermodel);
+         if(usermodel1==usermodel) 
+         {return new ResponseEntity<String>("user updated", HttpStatus.OK); 
+             }
+     
+         throw new UserAlreadyExists("user already exists");
+    
+    }
 
 	@RequestMapping(method=RequestMethod.DELETE, value="/delete/{id}", consumes="application/json")
     public ResponseEntity<String> delete(@PathVariable(value="id") int id){
