@@ -38,9 +38,9 @@ public class DbUserService implements UserService {
 
 	/*Retrieve a user profile by ID*/
 	@Override
-	public int getUserbyId(int id) {
-		userRepository.findOne(id);
-		return id;
+	public UserModel getUserbyId(int id) {
+		return userRepository.findOne(id);
+	
 	}
 
 	/*Delete a user profile*/
