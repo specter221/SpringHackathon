@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.stackroute.springrestapi.domain.UserModel;
 
-
-
 public interface UserService {
 	public List<UserModel> getAllUsers( );
 	public UserModel addUser(UserModel usermodel);
