@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stackroute.springrestapi.domain.UserModel;
+import com.stackroute.springrestapi.exceptions.NotValidException;
+import com.stackroute.springrestapi.exceptions.UserAlreadyExists;
 import com.stackroute.springrestapi.service.UserService;
 
 
@@ -36,9 +38,12 @@ public class UserController {
 	
 	/*add user in the database */
 	@RequestMapping(value="/save", method=RequestMethod.POST, consumes="application/json")
-	   public ResponseEntity addUser(@RequestBody UserModel usermodel)
+	   public ResponseEntity addUser(@RequestBody UserModel usermodel) throws NotValidException
 	   {
-	       /*Add validation code*/        
+	       /*Add validation code*/
+	if(!(usermodel.getEmail_id().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")))
+	     throw new NotValidException("Invalid email");
+		
 	       userservice.addUser(usermodel);
 	       return new ResponseEntity<String>("User Added", HttpStatus.OK) ;
 	   }
@@ -47,8 +52,13 @@ public class UserController {
 	@RequestMapping(value="/update", method=RequestMethod.PUT, consumes="application/json")
 	   public ResponseEntity updateUser(@RequestBody UserModel usermodel)
 	   {
-	       /*Add validation code*/        
+	       /*Add validation code*/ 
+		try {
 	       userservice.updateUser(usermodel);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+		}
 	       return new ResponseEntity<String>("user updated", HttpStatus.OK) ;
 	   }
 	@RequestMapping(method=RequestMethod.DELETE, value="/delete/{id}", consumes="application/json")
