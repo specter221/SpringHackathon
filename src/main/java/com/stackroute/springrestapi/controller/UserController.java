@@ -21,6 +21,7 @@ public class UserController {
 	@Autowired
 	private UserService userservice;
 	
+	/*Get all User */
 	@RequestMapping(value="/get" , method=RequestMethod.GET)
 	public ResponseEntity  getAllUsers() {
 		List <UserModel> user = userservice.getAllUsers();	
@@ -32,7 +33,7 @@ public class UserController {
 		return new ResponseEntity<List<UserModel>>(user,HttpStatus.OK);
 }
 	
-	
+	/*add user in the database */
 	@RequestMapping(value="/save", method=RequestMethod.POST, consumes="application/json")
 	   public ResponseEntity addUser(@RequestBody UserModel usermodel)
 	   {
@@ -41,7 +42,7 @@ public class UserController {
 	       return new ResponseEntity<String>("User Added", HttpStatus.OK) ;
 	   }
 	
-	
+	/*update user in the database */
 	@RequestMapping(value="/update", method=RequestMethod.PUT, consumes="application/json")
 	   public ResponseEntity updateUser(@RequestBody UserModel usermodel)
 	   {

@@ -1,38 +1,55 @@
 package com.stackroute.springrestapi;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.junit.Assert.*;
 
-/**
- * Unit test for simple App.
- */
-public class UserMainTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public UserMainTest( String testName )
-    {
-        super( testName );
-    }
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( UserMainTest.class );
-    }
+import com.stackroute.springrestapi.domain.UserModel;
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = UserMain.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class UserMainTest {
+	    String user1;
+	    @LocalServerPort
+	    private int port;
+	    TestRestTemplate restTemplate = new TestRestTemplate();
+	    HttpHeaders headers = new HttpHeaders();
+	    UserModel usermodel;
+	    @Before
+	    public void setUp() throws Exception {
+	    	usermodel = new UserModel();
+	    }
+	    private String createURLWithPort(String uri) {
+	        return "http://localhost:" + port + uri;
+	    }
+	    @After
+	    public void tearDown() throws Exception {
+	    }
+	    @Test
+	    public void testSaveUser() throws Exception {
+	        HttpEntity<UserModel> entity = new HttpEntity<UserModel>(usermodel, headers);
+	        ResponseEntity<String> response = restTemplate.exchange(
+	                createURLWithPort("/v0.1/userprofile/save"),
+	                HttpMethod.POST, entity, String.class);
+	        assertNotNull(response);
+	        String actual = response.getBody();
+	        System.out.println(actual);
+	        assertEquals("User Added",actual);
+	    }
 }
+	    
+	    
+	    
+	    
+	    
