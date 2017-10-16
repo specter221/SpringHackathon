@@ -1,5 +1,5 @@
 package com.stackroute.springrestapi.repository;
 
-public class UserRepository {
+public interface UserRepository {
 
 }
