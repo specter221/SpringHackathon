@@ -44,7 +44,7 @@ public class UserController {
 	       /*Add validation code*/
 	if(!(usermodel.getEmail_id().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")))
 	     throw new NotValidException("Invalid email");
-	else if(!(usermodel.getUsername().matches("^[A-Za-z0-9_]")))
+	else if(usermodel.getUsername()=="")
 			throw new NotValidException("Username cannot be empty");
 	       userservice.addUser(usermodel);
 	       return new ResponseEntity<String>("User Added", HttpStatus.OK) ;
