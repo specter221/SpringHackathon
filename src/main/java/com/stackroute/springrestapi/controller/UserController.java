@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.stackroute.springrestapi.domain.UserModel;
 import com.stackroute.springrestapi.exceptions.NotValidException;
 import com.stackroute.springrestapi.exceptions.UserAlreadyExists;
+import com.stackroute.springrestapi.exceptions.UserDoesNotExistException;
 import com.stackroute.springrestapi.service.UserService;
 
 
@@ -75,12 +76,13 @@ public class UserController {
     }
 	
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-	   public ResponseEntity <UserModel> getById(@PathVariable("id") int id) {
+	   public ResponseEntity <UserModel> getById(@PathVariable("id") int id) throws UserDoesNotExistException {
 	     
 	     UserModel usermodel=userservice.getUserbyId(id);
 	       if (usermodel == null) {
-	           return new ResponseEntity<UserModel>(HttpStatus.NOT_FOUND);
+	    	   throw new UserDoesNotExistException("user doesnot exists");
 	       }
+	       else 
 	           return new ResponseEntity<UserModel>(usermodel,HttpStatus.OK);
 	   }
 	
