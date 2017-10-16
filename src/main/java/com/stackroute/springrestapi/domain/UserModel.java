@@ -2,12 +2,15 @@ package com.stackroute.springrestapi.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class UserModel {
 	@Id
 	private int id;
+	
 	private String username;
+	
 	private String email_id;
 	public int getId() {
 		return id;

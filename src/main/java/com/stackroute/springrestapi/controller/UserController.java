@@ -2,6 +2,8 @@ package com.stackroute.springrestapi.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,12 +39,13 @@ public class UserController {
 	
 	/*add user in the database */
 	@RequestMapping(value="/save", method=RequestMethod.POST, consumes="application/json")
-	   public ResponseEntity addUser(@RequestBody UserModel usermodel) throws NotValidException
+	   public ResponseEntity addUser( @RequestBody UserModel usermodel) throws NotValidException
 	   {
 	       /*Add validation code*/
 	if(!(usermodel.getEmail_id().matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")))
 	     throw new NotValidException("Invalid email");
-		
+	else if(!(usermodel.getUsername().matches("^[A-Za-z0-9_]")))
+			throw new NotValidException("Username cannot be empty");
 	       userservice.addUser(usermodel);
 	       return new ResponseEntity<String>("User Added", HttpStatus.OK) ;
 	   }
