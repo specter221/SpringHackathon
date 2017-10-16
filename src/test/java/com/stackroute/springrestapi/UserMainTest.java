@@ -67,6 +67,15 @@ public class UserMainTest {
 	        System.out.println(actual);
 	        assertEquals("user updated",actual);
 	    }
+	    
+	    @Test
+	    public void testgetById() throws Exception {
+	        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+	        ResponseEntity<String> response = restTemplate.exchange(
+	                createURLWithPort("/v0.1/userprofile/get/1"),
+	                HttpMethod.GET, entity, String.class);
+	        assertNotNull(response);
+	    }
 }
 	    
 	    
