@@ -16,6 +16,14 @@ public class DbUserService implements UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
+
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
 	/*Retrieve all user profiles*/
 	@Override
 	public List<UserModel> getAllUsers() {

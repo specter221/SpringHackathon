@@ -59,9 +59,7 @@ public class UserController {
 			UserModel usermodel1= userservice.updateUser(usermodel);
 			if(usermodel==usermodel1) throw new UserAlreadyExists("user already exists");
 		
-//		catch(UserAlreadyExists e) {
-//			return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
-//		}
+
 		else {
 	       return new ResponseEntity<String>("user updated", HttpStatus.OK) ;
 	   }
