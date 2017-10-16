@@ -24,16 +24,21 @@ public class UserController {
 	@RequestMapping(value="/get" , method=RequestMethod.GET)
 	public ResponseEntity  getAllUsers() {
 		List <UserModel> user = userservice.getAllUsers();	
+		
+		if(user==null)
+		{
+			return new ResponseEntity<List<UserModel>>(HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<List<UserModel>>(user,HttpStatus.OK);
-				
-	}
+}
+	
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST, consumes="application/json")
 	   public ResponseEntity addUser(@RequestBody UserModel usermodel)
 	   {
 	       /*Add validation code*/        
 	       userservice.addUser(usermodel);
-	       return new ResponseEntity<String>("List Added", HttpStatus.OK) ;
+	       return new ResponseEntity<String>("User Added", HttpStatus.OK) ;
 	   }
 	
 	
@@ -42,9 +47,8 @@ public class UserController {
 	   {
 	       /*Add validation code*/        
 	       userservice.updateUser(usermodel);
-	       return new ResponseEntity<String>("List Added", HttpStatus.OK) ;
+	       return new ResponseEntity<String>("user updated", HttpStatus.OK) ;
 	   }
-	
 	
 	
 }
