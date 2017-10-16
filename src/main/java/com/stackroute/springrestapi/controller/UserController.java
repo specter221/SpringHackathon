@@ -60,16 +60,16 @@ public class UserController {
         
     }
 	
-//	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-//	   public ResponseEntity <UserModel> getById(@PathVariable("id") int id) {
-//	     
-//	     UserModel usermodel=userservice.getUserbyId(id);
-////	      int userbyid = userservice.getUserbyId(id);
-//	       if (usermodel == null) {
-//	           return new ResponseEntity<UserModel>(HttpStatus.NOT_FOUND);
-//	       }
-//	           return new ResponseEntity<UserModel>(usermodel,HttpStatus.OK);
-//	   }
-//	
+	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+	   public ResponseEntity <UserModel> getById(@PathVariable("id") int id) {
+	     
+	     UserModel usermodel=userservice.getUserbyId(id);
+//      int userbyid = userservice.getUserbyId(id);
+	       if (usermodel == null) {
+	           return new ResponseEntity<UserModel>(HttpStatus.NOT_FOUND);
+	       }
+	           return new ResponseEntity<UserModel>(usermodel,HttpStatus.OK);
+	   }
+	
 	
 }
